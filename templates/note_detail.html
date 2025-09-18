@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="container">
+<article class="note-full">
+<h2>{{ note.title|default:"(untitled)" }}</h2>
+<p class="meta">{{ note.created_at|date:"F j, Y, g:i a" }}</p>
+<div class="content">{{ note.content|linebreaksbr }}</div>
+</article>
+
+
+<section class="edit-note">
+<h3>Edit</h3>
+<form method="post">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">Save</button>
+</form>
+
+
+<h3>Delete</h3>
+<form method="post" action="{% url 'notes:delete_note' note.pk %}">
+{% csrf_token %}
+<button type="submit">Delete</button>
+</form>
+</section>
+</div>
+{% endblock %}

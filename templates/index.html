@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="container">
+<section class="add-note">
+<h2>Add a note / mini-article</h2>
+<form method="post" action="">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">Add</button>
+</form>
+</section>
+
+
+<section class="notes-list">
+<h2>Recent notes</h2>
+{% for note in notes %}
+<article class="note">
+<h3><a href="{% url 'notes:note_detail' note.pk %}">{{ note.title|default:"(untitled)" }}</a></h3>
+<p class="meta">{{ note.created_at|date:"M d, Y H:i" }}</p>
+<p>{{ note.content|linebreaksbr|truncatechars:300 }}</p>
+<p><a href="{% url 'notes:note_detail' note.pk %}">Read / Edit</a></p>
+</article>
+{% empty %}
+<p>No notes yet — be the first to add one!</p>
+{% endfor %}
+</section>
+</div>
+{% endblock %}
