@@ -5,9 +5,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'replace-this-with-a-secure-secret-key-for-production'
 
+# For production, change this to False
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# Add your domain/host here for production
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'hananpt1.pythonanywhere.com']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -63,8 +65,15 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
+# ---------------------
+# STATIC FILES SETTINGS
+# ---------------------
 STATIC_URL = '/static/'
+
+# where Django looks for extra static files during development
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# where collectstatic will put all files for production
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
